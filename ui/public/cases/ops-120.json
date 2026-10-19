@@ -1,0 +1,166 @@
+{
+  "id": "ops-120",
+  "title_en": "OPS-120 — nobody checked",
+  "title_zh": "OPS-120 — 没有人核验",
+  "narrative_en": "The report is published with verification required and no verifier span.",
+  "narrative_zh": "报告要求核验，轨迹里却没有任何核验步骤。",
+  "gold_mode": "FM-3.2",
+  "gold_span_id": "ops120-report",
+  "task_en": "Publish the PEK cargo note and verify the figures.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "analyst"
+  ],
+  "steps": [
+    {
+      "span_id": "ops120-report",
+      "trace_id": "ops-120",
+      "agent": "analyst",
+      "kind": "llm",
+      "name": "report",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "analyst",
+      "input_text": "",
+      "output_text": "Cargo revenue is within limit for station PEK.",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [
+        "report"
+      ],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-3.2:ops120-report",
+      "mode": "FM-3.2",
+      "category": "FC3",
+      "span_id": "ops120-report",
+      "agent": "analyst",
+      "step_name": "report",
+      "started_at": 0.0,
+      "confidence": 0.785,
+      "evidence": "Cargo revenue is within limit for station PEK.",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {},
+      "mode_name_en": "No or incomplete verification",
+      "mode_name_zh": "缺少或未完成核验",
+      "category_name_en": "Task verification failures",
+      "category_name_zh": "任务核验失败"
+    }
+  ],
+  "blame": {
+    "span_id": "ops120-report",
+    "agent": "analyst",
+    "role": "analyst",
+    "mode": "FM-3.2",
+    "category": "FC3",
+    "category_name_en": "Task verification failures",
+    "category_name_zh": "任务核验失败",
+    "mode_name_en": "No or incomplete verification",
+    "mode_name_zh": "缺少或未完成核验",
+    "step_name": "report",
+    "started_at": 0.0,
+    "evidence": "Cargo revenue is within limit for station PEK.",
+    "confidence": 0.785,
+    "causal_chain": [
+      "ops120-report"
+    ],
+    "symptom_ids": []
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-3.2",
+      "failed_span_id": "ops120-report",
+      "failed_agent": "analyst",
+      "failed_subtask": "report",
+      "preserved_span_ids": [],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `report` on agent `analyst` (FM-3.2 No or incomplete verification). Keep 0 earlier or sibling span(s) frozen and replay 0 dependent span(s). The task requires a check, and no verifier step runs.",
+      "instruction_zh": "只重规划智能体 `analyst` 的子任务 `report`（FM-3.2 缺少或未完成核验）。冻结 0 个已完成或旁路步骤，重放 0 个下游步骤。任务要求核验，但没有任何核验步骤。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops120-report",
+        "trace_id": "ops-120",
+        "agent": "analyst",
+        "kind": "llm",
+        "name": "report",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "analyst",
+        "input_text": "",
+        "output_text": "Cargo revenue is within limit for station PEK.",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [
+          "report"
+        ],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops120-report-repair-verify",
+        "trace_id": "ops-120",
+        "agent": "verifier",
+        "kind": "guardrail",
+        "name": "verify",
+        "started_at": 1.1,
+        "ended_at": 1.4,
+        "parent_id": "ops120-report",
+        "role": "verifier",
+        "input_text": "",
+        "output_text": "Verification completed.",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [
+          "verify"
+        ],
+        "verification": {
+          "passed": true,
+          "checks": [
+            {
+              "name": "constraints",
+              "ok": true
+            }
+          ]
+        },
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

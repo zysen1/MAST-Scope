@@ -1,0 +1,133 @@
+{
+  "id": "ops-015",
+  "title_en": "OPS-015 — a guess instead of a question",
+  "title_zh": "OPS-015 — 该问的时候猜了一个",
+  "narrative_en": "The docket is explicitly either/or. The clerk files the airline docket without asking.",
+  "narrative_zh": "卷宗明确是二选一。文员没有提问，直接归到了航空公司卷宗。",
+  "gold_mode": "FM-2.2",
+  "gold_span_id": "ops015-file",
+  "task_en": "File the incident report in the correct docket.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "clerk"
+  ],
+  "steps": [
+    {
+      "span_id": "ops015-file",
+      "trace_id": "ops-015",
+      "agent": "clerk",
+      "kind": "tool",
+      "name": "file_report",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "clerk",
+      "input_text": "File the report under either the safety board or the airline docket.",
+      "output_text": "filed under airline",
+      "output_json": {},
+      "tool_name": "file_report",
+      "tool_args": {
+        "docket": "airline"
+      },
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-2.2:ops015-file",
+      "mode": "FM-2.2",
+      "category": "FC2",
+      "span_id": "ops015-file",
+      "agent": "clerk",
+      "step_name": "file_report",
+      "started_at": 0.0,
+      "confidence": 0.77,
+      "evidence": "File the report under either the safety board or the airline docket.",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "tool": "file_report"
+      },
+      "mode_name_en": "Fail to ask for clarification",
+      "mode_name_zh": "该澄清时没有提问",
+      "category_name_en": "Inter-agent misalignment",
+      "category_name_zh": "智能体间失配"
+    }
+  ],
+  "blame": {
+    "span_id": "ops015-file",
+    "agent": "clerk",
+    "role": "clerk",
+    "mode": "FM-2.2",
+    "category": "FC2",
+    "category_name_en": "Inter-agent misalignment",
+    "category_name_zh": "智能体间失配",
+    "mode_name_en": "Fail to ask for clarification",
+    "mode_name_zh": "该澄清时没有提问",
+    "step_name": "file_report",
+    "started_at": 0.0,
+    "evidence": "File the report under either the safety board or the airline docket.",
+    "confidence": 0.77,
+    "causal_chain": [
+      "ops015-file"
+    ],
+    "symptom_ids": []
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-2.2",
+      "failed_span_id": "ops015-file",
+      "failed_agent": "clerk",
+      "failed_subtask": "file_report",
+      "preserved_span_ids": [],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `file_report` on agent `clerk` (FM-2.2 Fail to ask for clarification). Keep 0 earlier or sibling span(s) frozen and replay 0 dependent span(s). The input leaves a choice open, and the agent acts without asking.",
+      "instruction_zh": "只重规划智能体 `clerk` 的子任务 `file_report`（FM-2.2 该澄清时没有提问）。冻结 0 个已完成或旁路步骤，重放 0 个下游步骤。输入里有未决的选择，智能体没有提问就行动了。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops015-file",
+        "trace_id": "ops-015",
+        "agent": "clerk",
+        "kind": "message",
+        "name": "file_report",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "clerk",
+        "input_text": "File the report under either the safety board or the airline docket.",
+        "output_text": "Which of the stated options should I use?",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {
+          "docket": "airline"
+        },
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": true,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

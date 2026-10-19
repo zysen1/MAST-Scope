@@ -1,0 +1,219 @@
+{
+  "id": "ops-641",
+  "title_en": "OPS-641 — the budget fell out of the prompt",
+  "title_zh": "OPS-641 — 预算从上下文里掉了",
+  "narrative_en": "The planner fixed the budget at 500. The buyer turn never sees that number and spends 900.",
+  "narrative_zh": "计划席把预算定在 500。采购席的下一轮上下文里没有这个数字，花了 900。",
+  "gold_mode": "FM-1.4",
+  "gold_span_id": "ops641-buyer",
+  "task_en": "Buy catering under the stated budget.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "planner",
+    "buyer"
+  ],
+  "steps": [
+    {
+      "span_id": "ops641-plan",
+      "trace_id": "ops-641",
+      "agent": "planner",
+      "kind": "agent",
+      "name": "budget",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "planner",
+      "input_text": "",
+      "output_text": "budget_usd is 500. Keep the plan under this cap.",
+      "output_json": {
+        "budget_usd": 500
+      },
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops641-buyer",
+      "trace_id": "ops-641",
+      "agent": "buyer",
+      "kind": "llm",
+      "name": "purchase",
+      "started_at": 2.0,
+      "ended_at": 3.0,
+      "parent_id": "ops641-plan",
+      "role": "buyer",
+      "input_text": "buy the catering package",
+      "output_text": "purchased catering for 900 usd",
+      "output_json": {
+        "spent_usd": 900
+      },
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-1.1:ops641-buyer",
+      "mode": "FM-1.1",
+      "category": "FC1",
+      "span_id": "ops641-buyer",
+      "agent": "buyer",
+      "step_name": "purchase",
+      "started_at": 2.0,
+      "confidence": 0.8,
+      "evidence": "purchased catering for 900 usd",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "constraint_kind": "max_number",
+        "field": "spent_usd",
+        "value": 500
+      },
+      "mode_name_en": "Disobey task specification",
+      "mode_name_zh": "违反任务规格",
+      "category_name_en": "System design issues",
+      "category_name_zh": "系统设计问题"
+    },
+    {
+      "id": "FM-1.4:ops641-buyer",
+      "mode": "FM-1.4",
+      "category": "FC1",
+      "span_id": "ops641-buyer",
+      "agent": "buyer",
+      "step_name": "purchase",
+      "started_at": 2.0,
+      "confidence": 0.79,
+      "evidence": "buy the catering package",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "missing": [
+          {
+            "key": "budget_usd",
+            "value": "500"
+          }
+        ]
+      },
+      "mode_name_en": "Loss of conversation history",
+      "mode_name_zh": "丢失对话历史",
+      "category_name_en": "System design issues",
+      "category_name_zh": "系统设计问题"
+    }
+  ],
+  "blame": {
+    "span_id": "ops641-buyer",
+    "agent": "buyer",
+    "role": "buyer",
+    "mode": "FM-1.4",
+    "category": "FC1",
+    "category_name_en": "System design issues",
+    "category_name_zh": "系统设计问题",
+    "mode_name_en": "Loss of conversation history",
+    "mode_name_zh": "丢失对话历史",
+    "step_name": "purchase",
+    "started_at": 2.0,
+    "evidence": "buy the catering package",
+    "confidence": 0.79,
+    "causal_chain": [
+      "ops641-buyer"
+    ],
+    "symptom_ids": [
+      "FM-1.1:ops641-buyer"
+    ]
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-1.4",
+      "failed_span_id": "ops641-buyer",
+      "failed_agent": "buyer",
+      "failed_subtask": "purchase",
+      "preserved_span_ids": [
+        "ops641-plan"
+      ],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `purchase` on agent `buyer` (FM-1.4 Loss of conversation history). Keep 1 earlier or sibling span(s) frozen and replay 0 dependent span(s). A later turn drops a memory value that an earlier turn had established.",
+      "instruction_zh": "只重规划智能体 `buyer` 的子任务 `purchase`（FM-1.4 丢失对话历史）。冻结 1 个已完成或旁路步骤，重放 0 个下游步骤。后续轮次丢掉了前面已经确定的记忆值。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops641-plan",
+        "trace_id": "ops-641",
+        "agent": "planner",
+        "kind": "agent",
+        "name": "budget",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "planner",
+        "input_text": "",
+        "output_text": "budget_usd is 500. Keep the plan under this cap.",
+        "output_json": {
+          "budget_usd": 500
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops641-buyer",
+        "trace_id": "ops-641",
+        "agent": "buyer",
+        "kind": "llm",
+        "name": "purchase",
+        "started_at": 2.0,
+        "ended_at": 3.0,
+        "parent_id": "ops641-plan",
+        "role": "buyer",
+        "input_text": "buy the catering package budget_usd=500",
+        "output_text": "Clamped spent_usd to 500 after the missing context was restored.",
+        "output_json": {
+          "spent_usd": 500
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

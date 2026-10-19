@@ -1,0 +1,419 @@
+{
+  "id": "ops-000",
+  "title_en": "OPS-000 — a clean arrival",
+  "title_zh": "OPS-000 — 一次干净的进场",
+  "narrative_en": "Weather passes the crosswind through, dispatch stays inside the limit, and the verifier agrees.",
+  "narrative_zh": "气象席把侧风原样交接，签派停在限制以内，核验席的结论与检查一致。",
+  "gold_mode": null,
+  "gold_span_id": null,
+  "task_en": "Report whether runway 27 is within the crosswind limit of 25 knots.",
+  "task_zh": "报告 27 号跑道是否处于 25 节侧风限制以内。",
+  "framework": "seeded",
+  "agents": [
+    "dispatcher",
+    "weather",
+    "verifier"
+  ],
+  "steps": [
+    {
+      "span_id": "ops000-root",
+      "trace_id": "ops-000",
+      "agent": "dispatcher",
+      "kind": "agent",
+      "name": "receive",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "dispatcher",
+      "input_text": "",
+      "output_text": "limit_kt is 25. Requesting the crosswind.",
+      "output_json": {
+        "limit_kt": 25
+      },
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops000-metar",
+      "trace_id": "ops-000",
+      "agent": "weather",
+      "kind": "tool",
+      "name": "weather",
+      "started_at": 1.0,
+      "ended_at": 2.0,
+      "parent_id": "ops000-root",
+      "role": "weather",
+      "input_text": "",
+      "output_text": "crosswind_kt 12, limit_exceeded false",
+      "output_json": {},
+      "tool_name": "read_metar",
+      "tool_args": {
+        "runway": "27"
+      },
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {
+        "crosswind_kt": 12,
+        "limit_kt": 25,
+        "limit_exceeded": false
+      },
+      "allowed_tools": [
+        "read_metar"
+      ],
+      "completed_subtasks": [
+        "weather"
+      ],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops000-handoff",
+      "trace_id": "ops-000",
+      "agent": "weather",
+      "kind": "handoff",
+      "name": "handoff-weather",
+      "started_at": 2.0,
+      "ended_at": 3.0,
+      "parent_id": "ops000-metar",
+      "role": "weather",
+      "input_text": "",
+      "output_text": "crosswind_kt 12 limit_exceeded false",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": "dispatcher",
+      "handoff_payload": {
+        "crosswind_kt": 12,
+        "limit_exceeded": false,
+        "runway": "27"
+      },
+      "facts_known": {
+        "crosswind_kt": 12,
+        "limit_exceeded": false
+      },
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops000-report",
+      "trace_id": "ops-000",
+      "agent": "dispatcher",
+      "kind": "llm",
+      "name": "report",
+      "started_at": 3.0,
+      "ended_at": 4.0,
+      "parent_id": "ops000-root",
+      "role": "dispatcher",
+      "input_text": "limit_kt is 25. crosswind_kt 12. limit_exceeded false.",
+      "output_text": "Runway 27 is within limit. Crosswind 12 knots.",
+      "output_json": {
+        "crosswind_kt": 12,
+        "within_limit": true
+      },
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [
+        "weather",
+        "report"
+      ],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops000-publish",
+      "trace_id": "ops-000",
+      "agent": "dispatcher",
+      "kind": "tool",
+      "name": "publish_report",
+      "started_at": 4.0,
+      "ended_at": 5.0,
+      "parent_id": "ops000-report",
+      "role": "dispatcher",
+      "input_text": "",
+      "output_text": "published within limit",
+      "output_json": {},
+      "tool_name": "publish_report",
+      "tool_args": {
+        "crosswind_kt": 12
+      },
+      "reasoning": "I will call publish_report",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": [
+        "publish_report"
+      ],
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops000-verify",
+      "trace_id": "ops-000",
+      "agent": "verifier",
+      "kind": "guardrail",
+      "name": "verify",
+      "started_at": 5.0,
+      "ended_at": 6.0,
+      "parent_id": "ops000-report",
+      "role": "verifier",
+      "input_text": "",
+      "output_text": "crosswind check passed",
+      "output_json": {
+        "passed": true
+      },
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [
+        "weather",
+        "report",
+        "verify"
+      ],
+      "verification": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "crosswind",
+            "ok": true
+          }
+        ]
+      },
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [],
+  "blame": null,
+  "healthy": true,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": null,
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops000-root",
+        "trace_id": "ops-000",
+        "agent": "dispatcher",
+        "kind": "agent",
+        "name": "receive",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "dispatcher",
+        "input_text": "",
+        "output_text": "limit_kt is 25. Requesting the crosswind.",
+        "output_json": {
+          "limit_kt": 25
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops000-metar",
+        "trace_id": "ops-000",
+        "agent": "weather",
+        "kind": "tool",
+        "name": "weather",
+        "started_at": 1.0,
+        "ended_at": 2.0,
+        "parent_id": "ops000-root",
+        "role": "weather",
+        "input_text": "",
+        "output_text": "crosswind_kt 12, limit_exceeded false",
+        "output_json": {},
+        "tool_name": "read_metar",
+        "tool_args": {
+          "runway": "27"
+        },
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {
+          "crosswind_kt": 12,
+          "limit_kt": 25,
+          "limit_exceeded": false
+        },
+        "allowed_tools": [
+          "read_metar"
+        ],
+        "completed_subtasks": [
+          "weather"
+        ],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops000-handoff",
+        "trace_id": "ops-000",
+        "agent": "weather",
+        "kind": "handoff",
+        "name": "handoff-weather",
+        "started_at": 2.0,
+        "ended_at": 3.0,
+        "parent_id": "ops000-metar",
+        "role": "weather",
+        "input_text": "",
+        "output_text": "crosswind_kt 12 limit_exceeded false",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": "dispatcher",
+        "handoff_payload": {
+          "crosswind_kt": 12,
+          "limit_exceeded": false,
+          "runway": "27"
+        },
+        "facts_known": {
+          "crosswind_kt": 12,
+          "limit_exceeded": false
+        },
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops000-report",
+        "trace_id": "ops-000",
+        "agent": "dispatcher",
+        "kind": "llm",
+        "name": "report",
+        "started_at": 3.0,
+        "ended_at": 4.0,
+        "parent_id": "ops000-root",
+        "role": "dispatcher",
+        "input_text": "limit_kt is 25. crosswind_kt 12. limit_exceeded false.",
+        "output_text": "Runway 27 is within limit. Crosswind 12 knots.",
+        "output_json": {
+          "crosswind_kt": 12,
+          "within_limit": true
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [
+          "weather",
+          "report"
+        ],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops000-publish",
+        "trace_id": "ops-000",
+        "agent": "dispatcher",
+        "kind": "tool",
+        "name": "publish_report",
+        "started_at": 4.0,
+        "ended_at": 5.0,
+        "parent_id": "ops000-report",
+        "role": "dispatcher",
+        "input_text": "",
+        "output_text": "published within limit",
+        "output_json": {},
+        "tool_name": "publish_report",
+        "tool_args": {
+          "crosswind_kt": 12
+        },
+        "reasoning": "I will call publish_report",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": [
+          "publish_report"
+        ],
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops000-verify",
+        "trace_id": "ops-000",
+        "agent": "verifier",
+        "kind": "guardrail",
+        "name": "verify",
+        "started_at": 5.0,
+        "ended_at": 6.0,
+        "parent_id": "ops000-report",
+        "role": "verifier",
+        "input_text": "",
+        "output_text": "crosswind check passed",
+        "output_json": {
+          "passed": true
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [
+          "weather",
+          "report",
+          "verify"
+        ],
+        "verification": {
+          "passed": true,
+          "checks": [
+            {
+              "name": "crosswind",
+              "ok": true
+            }
+          ]
+        },
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

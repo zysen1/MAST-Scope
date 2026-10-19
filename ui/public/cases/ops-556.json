@@ -1,0 +1,206 @@
+{
+  "id": "ops-556",
+  "title_en": "OPS-556 — the check failed and still passed",
+  "title_zh": "OPS-556 — 检查失败，结论却是通过",
+  "narrative_en": "The crosswind check is marked not ok. The verifier still returns pass.",
+  "narrative_zh": "侧风检查的结果是不通过。核验席仍然给出了通过。",
+  "gold_mode": "FM-3.3",
+  "gold_span_id": "ops556-verify",
+  "task_en": "Verify the crosswind plan before release.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "dispatcher",
+    "verifier"
+  ],
+  "steps": [
+    {
+      "span_id": "ops556-plan",
+      "trace_id": "ops-556",
+      "agent": "dispatcher",
+      "kind": "llm",
+      "name": "dispatch",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "dispatcher",
+      "input_text": "",
+      "output_text": "Crosswind plan drafted.",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops556-verify",
+      "trace_id": "ops-556",
+      "agent": "verifier",
+      "kind": "guardrail",
+      "name": "verify",
+      "started_at": 1.0,
+      "ended_at": 2.0,
+      "parent_id": "ops556-plan",
+      "role": "verifier",
+      "input_text": "",
+      "output_text": "pass",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "crosswind",
+            "ok": false
+          }
+        ]
+      },
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-3.3:ops556-verify",
+      "mode": "FM-3.3",
+      "category": "FC3",
+      "span_id": "ops556-verify",
+      "agent": "verifier",
+      "step_name": "verify",
+      "started_at": 1.0,
+      "confidence": 0.805,
+      "evidence": "pass",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "failed_checks": [
+          {
+            "name": "crosswind",
+            "ok": false
+          }
+        ],
+        "constraint_failed": false
+      },
+      "mode_name_en": "Incorrect verification",
+      "mode_name_zh": "核验结论错误",
+      "category_name_en": "Task verification failures",
+      "category_name_zh": "任务核验失败"
+    }
+  ],
+  "blame": {
+    "span_id": "ops556-verify",
+    "agent": "verifier",
+    "role": "verifier",
+    "mode": "FM-3.3",
+    "category": "FC3",
+    "category_name_en": "Task verification failures",
+    "category_name_zh": "任务核验失败",
+    "mode_name_en": "Incorrect verification",
+    "mode_name_zh": "核验结论错误",
+    "step_name": "verify",
+    "started_at": 1.0,
+    "evidence": "pass",
+    "confidence": 0.805,
+    "causal_chain": [
+      "ops556-verify"
+    ],
+    "symptom_ids": []
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-3.3",
+      "failed_span_id": "ops556-verify",
+      "failed_agent": "verifier",
+      "failed_subtask": "verify",
+      "preserved_span_ids": [
+        "ops556-plan"
+      ],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `verify` on agent `verifier` (FM-3.3 Incorrect verification). Keep 1 earlier or sibling span(s) frozen and replay 0 dependent span(s). A verifier reports pass while a check or a constraint still fails.",
+      "instruction_zh": "只重规划智能体 `verifier` 的子任务 `verify`（FM-3.3 核验结论错误）。冻结 1 个已完成或旁路步骤，重放 0 个下游步骤。约束或检查仍然失败，核验却报告通过。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops556-plan",
+        "trace_id": "ops-556",
+        "agent": "dispatcher",
+        "kind": "llm",
+        "name": "dispatch",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "dispatcher",
+        "input_text": "",
+        "output_text": "Crosswind plan drafted.",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops556-verify",
+        "trace_id": "ops-556",
+        "agent": "verifier",
+        "kind": "guardrail",
+        "name": "verify",
+        "started_at": 1.0,
+        "ended_at": 2.0,
+        "parent_id": "ops556-plan",
+        "role": "verifier",
+        "input_text": "",
+        "output_text": "Verification failed closed.",
+        "output_json": {
+          "passed": false
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": {
+          "passed": false,
+          "checks": [
+            {
+              "name": "crosswind",
+              "ok": false
+            }
+          ]
+        },
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}
