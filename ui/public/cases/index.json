@@ -1,0 +1,124 @@
+{
+  "cases": [
+    {
+      "id": "ops-417",
+      "title_en": "OPS-417 — limit withheld, landing cleared",
+      "title_zh": "OPS-417 — 扣下超限事实，仍签发降落许可",
+      "gold_mode": "FM-2.4",
+      "healthy": false,
+      "file": "ops-417.json"
+    },
+    {
+      "id": "ops-110",
+      "title_en": "OPS-110 — clearance breaks the spec",
+      "title_zh": "OPS-110 — 许可直接违反规格",
+      "gold_mode": "FM-1.1",
+      "healthy": false,
+      "file": "ops-110.json"
+    },
+    {
+      "id": "ops-331",
+      "title_en": "OPS-331 — cabin releases the flight",
+      "title_zh": "OPS-331 — 客舱席越权放行",
+      "gold_mode": "FM-1.2",
+      "healthy": false,
+      "file": "ops-331.json"
+    },
+    {
+      "id": "ops-208",
+      "title_en": "OPS-208 — the same MEL lookup, again",
+      "title_zh": "OPS-208 — 同一条 MEL 被反复查询",
+      "gold_mode": "FM-1.3",
+      "healthy": false,
+      "file": "ops-208.json"
+    },
+    {
+      "id": "ops-641",
+      "title_en": "OPS-641 — the budget fell out of the prompt",
+      "title_zh": "OPS-641 — 预算从上下文里掉了",
+      "gold_mode": "FM-1.4",
+      "healthy": false,
+      "file": "ops-641.json"
+    },
+    {
+      "id": "ops-318",
+      "title_en": "OPS-318 — still filing after the close",
+      "title_zh": "OPS-318 — 已经结束仍在提交",
+      "gold_mode": "FM-1.5",
+      "healthy": false,
+      "file": "ops-318.json"
+    },
+    {
+      "id": "ops-700",
+      "title_en": "OPS-700 — the coordinator restarts the briefing",
+      "title_zh": "OPS-700 — 协调席把简报重置了",
+      "gold_mode": "FM-2.1",
+      "healthy": false,
+      "file": "ops-700.json"
+    },
+    {
+      "id": "ops-015",
+      "title_en": "OPS-015 — a guess instead of a question",
+      "title_zh": "OPS-015 — 该问的时候猜了一个",
+      "gold_mode": "FM-2.2",
+      "healthy": false,
+      "file": "ops-015.json"
+    },
+    {
+      "id": "ops-880",
+      "title_en": "OPS-880 — the summary leaves the station",
+      "title_zh": "OPS-880 — 摘要跑去筹备聚会",
+      "gold_mode": "FM-2.3",
+      "healthy": false,
+      "file": "ops-880.json"
+    },
+    {
+      "id": "ops-990",
+      "title_en": "OPS-990 — runtime ignores the port",
+      "title_zh": "OPS-990 — 运行席没听端口",
+      "gold_mode": "FM-2.5",
+      "healthy": false,
+      "file": "ops-990.json"
+    },
+    {
+      "id": "ops-774",
+      "title_en": "OPS-774 — the refund that charged",
+      "title_zh": "OPS-774 — 说退款，做了扣款",
+      "gold_mode": "FM-2.6",
+      "healthy": false,
+      "file": "ops-774.json"
+    },
+    {
+      "id": "ops-102",
+      "title_en": "OPS-102 — closed before verify",
+      "title_zh": "OPS-102 — 核验还没做就结束了",
+      "gold_mode": "FM-3.1",
+      "healthy": false,
+      "file": "ops-102.json"
+    },
+    {
+      "id": "ops-120",
+      "title_en": "OPS-120 — nobody checked",
+      "title_zh": "OPS-120 — 没有人核验",
+      "gold_mode": "FM-3.2",
+      "healthy": false,
+      "file": "ops-120.json"
+    },
+    {
+      "id": "ops-556",
+      "title_en": "OPS-556 — the check failed and still passed",
+      "title_zh": "OPS-556 — 检查失败，结论却是通过",
+      "gold_mode": "FM-3.3",
+      "healthy": false,
+      "file": "ops-556.json"
+    },
+    {
+      "id": "ops-000",
+      "title_en": "OPS-000 — a clean arrival",
+      "title_zh": "OPS-000 — 一次干净的进场",
+      "gold_mode": null,
+      "healthy": true,
+      "file": "ops-000.json"
+    }
+  ]
+}

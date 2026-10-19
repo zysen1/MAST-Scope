@@ -1,0 +1,127 @@
+{
+  "id": "ops-880",
+  "title_en": "OPS-880 — the summary leaves the station",
+  "title_zh": "OPS-880 — 摘要跑去筹备聚会",
+  "narrative_en": "Asked for PEK cargo revenue, the analyst writes about the office party.",
+  "narrative_zh": "任务是汇总首都机场的货运收入，分析席却写起了办公室聚会。",
+  "gold_mode": "FM-2.3",
+  "gold_span_id": "ops880-drift",
+  "task_en": "Summarize third-quarter cargo revenue for station PEK in USD.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "analyst"
+  ],
+  "steps": [
+    {
+      "span_id": "ops880-drift",
+      "trace_id": "ops-880",
+      "agent": "analyst",
+      "kind": "llm",
+      "name": "summarize",
+      "started_at": 0.0,
+      "ended_at": 2.0,
+      "parent_id": null,
+      "role": "analyst",
+      "input_text": "",
+      "output_text": "The office holiday party needs a chocolate cake, balloons, a playlist, and a speech about teamwork and gratitude for the facilities crew who set up the chairs in the hangar.",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-2.3:ops880-drift",
+      "mode": "FM-2.3",
+      "category": "FC2",
+      "span_id": "ops880-drift",
+      "agent": "analyst",
+      "step_name": "summarize",
+      "started_at": 0.0,
+      "confidence": 0.73,
+      "evidence": "The office holiday party needs a chocolate cake, balloons, a playlist, and a speech about teamwork and gratitude for the facilities crew who set up the chairs in the hangar.",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {},
+      "mode_name_en": "Task derailment",
+      "mode_name_zh": "任务偏离",
+      "category_name_en": "Inter-agent misalignment",
+      "category_name_zh": "智能体间失配"
+    }
+  ],
+  "blame": {
+    "span_id": "ops880-drift",
+    "agent": "analyst",
+    "role": "analyst",
+    "mode": "FM-2.3",
+    "category": "FC2",
+    "category_name_en": "Inter-agent misalignment",
+    "category_name_zh": "智能体间失配",
+    "mode_name_en": "Task derailment",
+    "mode_name_zh": "任务偏离",
+    "step_name": "summarize",
+    "started_at": 0.0,
+    "evidence": "The office holiday party needs a chocolate cake, balloons, a playlist, and a speech about teamwork and gratitude for the facilities crew who set up the chairs in the hangar.",
+    "confidence": 0.73,
+    "causal_chain": [
+      "ops880-drift"
+    ],
+    "symptom_ids": []
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-2.3",
+      "failed_span_id": "ops880-drift",
+      "failed_agent": "analyst",
+      "failed_subtask": "summarize",
+      "preserved_span_ids": [],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `summarize` on agent `analyst` (FM-2.3 Task derailment). Keep 0 earlier or sibling span(s) frozen and replay 0 dependent span(s). An output leaves the task and does not share its content words.",
+      "instruction_zh": "只重规划智能体 `analyst` 的子任务 `summarize`（FM-2.3 任务偏离）。冻结 0 个已完成或旁路步骤，重放 0 个下游步骤。输出离开了任务，和任务的内容词不再有交集。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops880-drift",
+        "trace_id": "ops-880",
+        "agent": "analyst",
+        "kind": "llm",
+        "name": "summarize",
+        "started_at": 0.0,
+        "ended_at": 2.0,
+        "parent_id": null,
+        "role": "analyst",
+        "input_text": "",
+        "output_text": "Returning to the task. Summarize third-quarter cargo revenue for station PEK in USD.",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

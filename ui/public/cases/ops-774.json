@@ -1,0 +1,134 @@
+{
+  "id": "ops-774",
+  "title_en": "OPS-774 — the refund that charged",
+  "title_zh": "OPS-774 — 说退款，做了扣款",
+  "narrative_en": "Billing's reasoning names refund_payment. The call is charge_payment.",
+  "narrative_zh": "计费席的推理写的是 refund_payment，实际调用的是 charge_payment。",
+  "gold_mode": "FM-2.6",
+  "gold_span_id": "ops774-charge",
+  "task_en": "Refund the duplicate passenger charge.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "billing"
+  ],
+  "steps": [
+    {
+      "span_id": "ops774-charge",
+      "trace_id": "ops-774",
+      "agent": "billing",
+      "kind": "tool",
+      "name": "charge_payment",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "billing",
+      "input_text": "",
+      "output_text": "charged 40",
+      "output_json": {},
+      "tool_name": "charge_payment",
+      "tool_args": {
+        "amount": 40
+      },
+      "reasoning": "I will call refund_payment for the duplicate charge.",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-2.6:ops774-charge",
+      "mode": "FM-2.6",
+      "category": "FC2",
+      "span_id": "ops774-charge",
+      "agent": "billing",
+      "step_name": "charge_payment",
+      "started_at": 0.0,
+      "confidence": 0.81,
+      "evidence": "I will call refund_payment for the duplicate charge.",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "mentioned": "refund_payment",
+        "called": "charge_payment"
+      },
+      "mode_name_en": "Reasoning-action mismatch",
+      "mode_name_zh": "推理与行动不一致",
+      "category_name_en": "Inter-agent misalignment",
+      "category_name_zh": "智能体间失配"
+    }
+  ],
+  "blame": {
+    "span_id": "ops774-charge",
+    "agent": "billing",
+    "role": "billing",
+    "mode": "FM-2.6",
+    "category": "FC2",
+    "category_name_en": "Inter-agent misalignment",
+    "category_name_zh": "智能体间失配",
+    "mode_name_en": "Reasoning-action mismatch",
+    "mode_name_zh": "推理与行动不一致",
+    "step_name": "charge_payment",
+    "started_at": 0.0,
+    "evidence": "I will call refund_payment for the duplicate charge.",
+    "confidence": 0.81,
+    "causal_chain": [
+      "ops774-charge"
+    ],
+    "symptom_ids": []
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-2.6",
+      "failed_span_id": "ops774-charge",
+      "failed_agent": "billing",
+      "failed_subtask": "charge_payment",
+      "preserved_span_ids": [],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `charge_payment` on agent `billing` (FM-2.6 Reasoning-action mismatch). Keep 0 earlier or sibling span(s) frozen and replay 0 dependent span(s). The reasoning names one tool and the step calls another.",
+      "instruction_zh": "只重规划智能体 `billing` 的子任务 `charge_payment`（FM-2.6 推理与行动不一致）。冻结 0 个已完成或旁路步骤，重放 0 个下游步骤。推理里写的是一个工具，实际调用的是另一个。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops774-charge",
+        "trace_id": "ops-774",
+        "agent": "billing",
+        "kind": "tool",
+        "name": "refund_payment",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "billing",
+        "input_text": "",
+        "output_text": "charged 40",
+        "output_json": {},
+        "tool_name": "refund_payment",
+        "tool_args": {
+          "amount": 40
+        },
+        "reasoning": "I will call refund_payment for the duplicate charge.",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

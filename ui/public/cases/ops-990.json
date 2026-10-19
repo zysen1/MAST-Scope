@@ -1,0 +1,196 @@
+{
+  "id": "ops-990",
+  "title_en": "OPS-990 — runtime ignores the port",
+  "title_zh": "OPS-990 — 运行席没听端口",
+  "narrative_en": "Network hands over port 443. Runtime binds port 80.",
+  "narrative_zh": "网络席交接的是 443 端口。运行席绑定了 80。",
+  "gold_mode": "FM-2.5",
+  "gold_span_id": "ops990-bind",
+  "task_en": "Bind the service to the port network selected.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "network",
+    "runtime"
+  ],
+  "steps": [
+    {
+      "span_id": "ops990-handoff",
+      "trace_id": "ops-990",
+      "agent": "network",
+      "kind": "handoff",
+      "name": "handoff-port",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "network",
+      "input_text": "",
+      "output_text": "Use port 443.",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": "runtime",
+      "handoff_payload": {
+        "port": 443
+      },
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops990-bind",
+      "trace_id": "ops-990",
+      "agent": "runtime",
+      "kind": "tool",
+      "name": "bind_port",
+      "started_at": 1.0,
+      "ended_at": 2.0,
+      "parent_id": "ops990-handoff",
+      "role": "runtime",
+      "input_text": "",
+      "output_text": "bound 80",
+      "output_json": {},
+      "tool_name": "bind_port",
+      "tool_args": {
+        "port": 80
+      },
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-2.5:ops990-bind",
+      "mode": "FM-2.5",
+      "category": "FC2",
+      "span_id": "ops990-bind",
+      "agent": "runtime",
+      "step_name": "bind_port",
+      "started_at": 1.0,
+      "confidence": 0.8,
+      "evidence": "bind_port",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "conflicts": [
+          {
+            "key": "port",
+            "expected": 443,
+            "actual": 80
+          }
+        ]
+      },
+      "mode_name_en": "Ignored other agent's input",
+      "mode_name_zh": "忽视其他智能体的输入",
+      "category_name_en": "Inter-agent misalignment",
+      "category_name_zh": "智能体间失配"
+    }
+  ],
+  "blame": {
+    "span_id": "ops990-bind",
+    "agent": "runtime",
+    "role": "runtime",
+    "mode": "FM-2.5",
+    "category": "FC2",
+    "category_name_en": "Inter-agent misalignment",
+    "category_name_zh": "智能体间失配",
+    "mode_name_en": "Ignored other agent's input",
+    "mode_name_zh": "忽视其他智能体的输入",
+    "step_name": "bind_port",
+    "started_at": 1.0,
+    "evidence": "bind_port",
+    "confidence": 0.8,
+    "causal_chain": [
+      "ops990-bind"
+    ],
+    "symptom_ids": []
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-2.5",
+      "failed_span_id": "ops990-bind",
+      "failed_agent": "runtime",
+      "failed_subtask": "bind_port",
+      "preserved_span_ids": [
+        "ops990-handoff"
+      ],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `bind_port` on agent `runtime` (FM-2.5 Ignored other agent's input). Keep 1 earlier or sibling span(s) frozen and replay 0 dependent span(s). A later action contradicts a value a peer already passed over.",
+      "instruction_zh": "只重规划智能体 `runtime` 的子任务 `bind_port`（FM-2.5 忽视其他智能体的输入）。冻结 1 个已完成或旁路步骤，重放 0 个下游步骤。后续行动否定了同伴已经传来的值。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops990-handoff",
+        "trace_id": "ops-990",
+        "agent": "network",
+        "kind": "handoff",
+        "name": "handoff-port",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "network",
+        "input_text": "",
+        "output_text": "Use port 443.",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": "runtime",
+        "handoff_payload": {
+          "port": 443
+        },
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops990-bind",
+        "trace_id": "ops-990",
+        "agent": "runtime",
+        "kind": "tool",
+        "name": "bind_port",
+        "started_at": 1.0,
+        "ended_at": 2.0,
+        "parent_id": "ops990-handoff",
+        "role": "runtime",
+        "input_text": "",
+        "output_text": "bound 80",
+        "output_json": {},
+        "tool_name": "bind_port",
+        "tool_args": {
+          "port": 443
+        },
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

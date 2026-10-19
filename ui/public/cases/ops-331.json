@@ -1,0 +1,143 @@
+{
+  "id": "ops-331",
+  "title_en": "OPS-331 — cabin releases the flight",
+  "title_zh": "OPS-331 — 客舱席越权放行",
+  "narrative_en": "The cabin role may announce or log. It calls the dispatcher-only release tool.",
+  "narrative_zh": "客舱席只能广播或记笔记，却调用了只有签派能用的放行工具。",
+  "gold_mode": "FM-1.2",
+  "gold_span_id": "ops331-tool",
+  "task_en": "Prepare the cabin announcement. Only dispatch may release the flight.",
+  "task_zh": "",
+  "framework": "seeded",
+  "agents": [
+    "cabin"
+  ],
+  "steps": [
+    {
+      "span_id": "ops331-tool",
+      "trace_id": "ops-331",
+      "agent": "cabin",
+      "kind": "tool",
+      "name": "dispatch_release",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "cabin",
+      "input_text": "",
+      "output_text": "released",
+      "output_json": {},
+      "tool_name": "dispatch_release",
+      "tool_args": {
+        "flight": "417"
+      },
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": [
+        "announce",
+        "log_note"
+      ],
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-1.2:ops331-tool",
+      "mode": "FM-1.2",
+      "category": "FC1",
+      "span_id": "ops331-tool",
+      "agent": "cabin",
+      "step_name": "dispatch_release",
+      "started_at": 0.0,
+      "confidence": 0.835,
+      "evidence": "dispatch_release",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "tool": "dispatch_release",
+        "allowed": [
+          "announce",
+          "log_note"
+        ]
+      },
+      "mode_name_en": "Disobey role specification",
+      "mode_name_zh": "违反角色规格",
+      "category_name_en": "System design issues",
+      "category_name_zh": "系统设计问题"
+    }
+  ],
+  "blame": {
+    "span_id": "ops331-tool",
+    "agent": "cabin",
+    "role": "cabin",
+    "mode": "FM-1.2",
+    "category": "FC1",
+    "category_name_en": "System design issues",
+    "category_name_zh": "系统设计问题",
+    "mode_name_en": "Disobey role specification",
+    "mode_name_zh": "违反角色规格",
+    "step_name": "dispatch_release",
+    "started_at": 0.0,
+    "evidence": "dispatch_release",
+    "confidence": 0.835,
+    "causal_chain": [
+      "ops331-tool"
+    ],
+    "symptom_ids": []
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-1.2",
+      "failed_span_id": "ops331-tool",
+      "failed_agent": "cabin",
+      "failed_subtask": "dispatch_release",
+      "preserved_span_ids": [],
+      "replay_span_ids": [],
+      "instruction_en": "Replan only `dispatch_release` on agent `cabin` (FM-1.2 Disobey role specification). Keep 0 earlier or sibling span(s) frozen and replay 0 dependent span(s). An agent calls a tool outside the tools its role is allowed to use.",
+      "instruction_zh": "只重规划智能体 `cabin` 的子任务 `dispatch_release`（FM-1.2 违反角色规格）。冻结 0 个已完成或旁路步骤，重放 0 个下游步骤。智能体调用了其角色不允许使用的工具。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops331-tool",
+        "trace_id": "ops-331",
+        "agent": "cabin",
+        "kind": "handoff",
+        "name": "dispatch_release",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "cabin",
+        "input_text": "",
+        "output_text": "Escalating dispatch_release to the role that owns it.",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {
+          "flight": "417"
+        },
+        "reasoning": "",
+        "handoff_to": "dispatcher",
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": [
+          "announce",
+          "log_note"
+        ],
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}

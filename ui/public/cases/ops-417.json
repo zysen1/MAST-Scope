@@ -1,0 +1,520 @@
+{
+  "id": "ops-417",
+  "title_en": "OPS-417 — limit withheld, landing cleared",
+  "title_zh": "OPS-417 — 扣下超限事实，仍签发降落许可",
+  "narrative_en": "Weather read a 28kt crosswind against a 25kt limit and handed dispatch a note that only said the wind was breezy. Dispatch cleared the landing. The verifier checked that a plan existed.",
+  "narrative_zh": "气象席读到侧风 28 节，限制是 25 节，交给签派的却只有一句“风有点大”。签派签发了降落许可。核验席只检查了“有没有一份计划”。",
+  "gold_mode": "FM-2.4",
+  "gold_span_id": "ops417-handoff",
+  "task_en": "Decide whether flight 417 may land on runway 27. Do not issue CLEARED TO LAND when the crosswind exceeds 25 knots.",
+  "task_zh": "判断 417 航班能否在 27 号跑道降落。侧风超过 25 节时不得签发 CLEARED TO LAND。",
+  "framework": "seeded",
+  "agents": [
+    "dispatcher",
+    "weather",
+    "fuel",
+    "verifier"
+  ],
+  "steps": [
+    {
+      "span_id": "ops417-root",
+      "trace_id": "ops-417",
+      "agent": "dispatcher",
+      "kind": "agent",
+      "name": "receive",
+      "started_at": 0.0,
+      "ended_at": 1.0,
+      "parent_id": null,
+      "role": "dispatcher",
+      "input_text": "",
+      "output_text": "Requesting weather and fuel before the landing decision.",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops417-metar",
+      "trace_id": "ops-417",
+      "agent": "weather",
+      "kind": "tool",
+      "name": "weather",
+      "started_at": 1.0,
+      "ended_at": 3.0,
+      "parent_id": "ops417-root",
+      "role": "weather",
+      "input_text": "",
+      "output_text": "METAR crosswind 28kt, limit 25kt.",
+      "output_json": {},
+      "tool_name": "read_metar",
+      "tool_args": {
+        "runway": "27"
+      },
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {
+        "crosswind_kt": 28,
+        "limit_kt": 25,
+        "limit_exceeded": true
+      },
+      "allowed_tools": null,
+      "completed_subtasks": [
+        "weather"
+      ],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops417-handoff",
+      "trace_id": "ops-417",
+      "agent": "weather",
+      "kind": "handoff",
+      "name": "handoff-weather",
+      "started_at": 3.0,
+      "ended_at": 4.0,
+      "parent_id": "ops417-metar",
+      "role": "weather",
+      "input_text": "",
+      "output_text": "wind is breezy",
+      "output_json": {},
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": "dispatcher",
+      "handoff_payload": {
+        "summary": "wind is breezy",
+        "runway": "27"
+      },
+      "facts_known": {
+        "crosswind_kt": 28,
+        "limit_kt": 25,
+        "limit_exceeded": true
+      },
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops417-fuel",
+      "trace_id": "ops-417",
+      "agent": "fuel",
+      "kind": "tool",
+      "name": "fuel-check",
+      "started_at": 4.0,
+      "ended_at": 6.0,
+      "parent_id": "ops417-root",
+      "role": "fuel",
+      "input_text": "",
+      "output_text": "Fuel is sufficient for runway 27.",
+      "output_json": {},
+      "tool_name": "compute_fuel",
+      "tool_args": {
+        "runway": "27"
+      },
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops417-decision",
+      "trace_id": "ops-417",
+      "agent": "dispatcher",
+      "kind": "llm",
+      "name": "dispatch",
+      "started_at": 6.0,
+      "ended_at": 8.0,
+      "parent_id": "ops417-root",
+      "role": "dispatcher",
+      "input_text": "Weather says wind is breezy. Fuel is sufficient.",
+      "output_text": "CLEARED TO LAND runway 27",
+      "output_json": {
+        "decision": "CLEARED TO LAND",
+        "runway": "27"
+      },
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [
+        "weather",
+        "dispatch"
+      ],
+      "verification": null,
+      "asked_clarification": false,
+      "metadata": {}
+    },
+    {
+      "span_id": "ops417-verify",
+      "trace_id": "ops-417",
+      "agent": "verifier",
+      "kind": "guardrail",
+      "name": "verify",
+      "started_at": 8.0,
+      "ended_at": 9.0,
+      "parent_id": "ops417-decision",
+      "role": "verifier",
+      "input_text": "",
+      "output_text": "pass",
+      "output_json": {
+        "passed": true
+      },
+      "tool_name": null,
+      "tool_args": {},
+      "reasoning": "",
+      "handoff_to": null,
+      "handoff_payload": {},
+      "facts_known": {},
+      "allowed_tools": null,
+      "completed_subtasks": [
+        "weather",
+        "dispatch",
+        "verify"
+      ],
+      "verification": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "plan_present",
+            "ok": true
+          }
+        ]
+      },
+      "asked_clarification": false,
+      "metadata": {}
+    }
+  ],
+  "findings": [
+    {
+      "id": "FM-1.1:ops417-decision",
+      "mode": "FM-1.1",
+      "category": "FC1",
+      "span_id": "ops417-decision",
+      "agent": "dispatcher",
+      "step_name": "dispatch",
+      "started_at": 6.0,
+      "confidence": 0.8,
+      "evidence": "CLEARED TO LAND runway 27",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "constraint_kind": "must_not_include",
+        "field": "",
+        "value": "CLEARED TO LAND"
+      },
+      "mode_name_en": "Disobey task specification",
+      "mode_name_zh": "违反任务规格",
+      "category_name_en": "System design issues",
+      "category_name_zh": "系统设计问题"
+    },
+    {
+      "id": "FM-2.4:ops417-handoff",
+      "mode": "FM-2.4",
+      "category": "FC2",
+      "span_id": "ops417-handoff",
+      "agent": "weather",
+      "step_name": "handoff-weather",
+      "started_at": 3.0,
+      "confidence": 0.82,
+      "evidence": "wind is breezy",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "missing": [
+          "crosswind_kt",
+          "limit_exceeded"
+        ],
+        "known": {
+          "crosswind_kt": 28,
+          "limit_exceeded": true
+        }
+      },
+      "mode_name_en": "Information withholding",
+      "mode_name_zh": "隐瞒信息",
+      "category_name_en": "Inter-agent misalignment",
+      "category_name_zh": "智能体间失配"
+    },
+    {
+      "id": "FM-3.3:ops417-verify",
+      "mode": "FM-3.3",
+      "category": "FC3",
+      "span_id": "ops417-verify",
+      "agent": "verifier",
+      "step_name": "verify",
+      "started_at": 8.0,
+      "confidence": 0.805,
+      "evidence": "pass",
+      "detector": "heuristic",
+      "judge_note": "The evidence quote is present on the blamed step.",
+      "details": {
+        "failed_checks": [],
+        "constraint_failed": true
+      },
+      "mode_name_en": "Incorrect verification",
+      "mode_name_zh": "核验结论错误",
+      "category_name_en": "Task verification failures",
+      "category_name_zh": "任务核验失败"
+    }
+  ],
+  "blame": {
+    "span_id": "ops417-handoff",
+    "agent": "weather",
+    "role": "weather",
+    "mode": "FM-2.4",
+    "category": "FC2",
+    "category_name_en": "Inter-agent misalignment",
+    "category_name_zh": "智能体间失配",
+    "mode_name_en": "Information withholding",
+    "mode_name_zh": "隐瞒信息",
+    "step_name": "handoff-weather",
+    "started_at": 3.0,
+    "evidence": "wind is breezy",
+    "confidence": 0.82,
+    "causal_chain": [
+      "ops417-handoff",
+      "ops417-decision",
+      "ops417-verify"
+    ],
+    "symptom_ids": [
+      "FM-1.1:ops417-decision",
+      "FM-3.3:ops417-verify"
+    ]
+  },
+  "healthy": false,
+  "judge_backend": "rubric-offline",
+  "repair": {
+    "plan": {
+      "mode": "FM-2.4",
+      "failed_span_id": "ops417-handoff",
+      "failed_agent": "weather",
+      "failed_subtask": "handoff-weather",
+      "preserved_span_ids": [
+        "ops417-root",
+        "ops417-metar",
+        "ops417-fuel"
+      ],
+      "replay_span_ids": [
+        "ops417-decision",
+        "ops417-verify"
+      ],
+      "instruction_en": "Replan only `handoff-weather` on agent `weather` (FM-2.4 Information withholding). Keep 3 earlier or sibling span(s) frozen and replay 2 dependent span(s). An agent knows a critical fact and leaves it out of the handoff.",
+      "instruction_zh": "只重规划智能体 `weather` 的子任务 `handoff-weather`（FM-2.4 隐瞒信息）。冻结 3 个已完成或旁路步骤，重放 2 个下游步骤。智能体已经知道关键事实，但交接时没有交出去。"
+    },
+    "root_cleared": true,
+    "fully_clean": true,
+    "steps": [
+      {
+        "span_id": "ops417-root",
+        "trace_id": "ops-417",
+        "agent": "dispatcher",
+        "kind": "agent",
+        "name": "receive",
+        "started_at": 0.0,
+        "ended_at": 1.0,
+        "parent_id": null,
+        "role": "dispatcher",
+        "input_text": "",
+        "output_text": "Requesting weather and fuel before the landing decision.",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops417-metar",
+        "trace_id": "ops-417",
+        "agent": "weather",
+        "kind": "tool",
+        "name": "weather",
+        "started_at": 1.0,
+        "ended_at": 3.0,
+        "parent_id": "ops417-root",
+        "role": "weather",
+        "input_text": "",
+        "output_text": "METAR crosswind 28kt, limit 25kt.",
+        "output_json": {},
+        "tool_name": "read_metar",
+        "tool_args": {
+          "runway": "27"
+        },
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {
+          "crosswind_kt": 28,
+          "limit_kt": 25,
+          "limit_exceeded": true
+        },
+        "allowed_tools": null,
+        "completed_subtasks": [
+          "weather"
+        ],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops417-handoff",
+        "trace_id": "ops-417",
+        "agent": "weather",
+        "kind": "handoff",
+        "name": "handoff-weather",
+        "started_at": 3.0,
+        "ended_at": 4.0,
+        "parent_id": "ops417-metar",
+        "role": "weather",
+        "input_text": "",
+        "output_text": "wind is breezy crosswind_kt=28 limit_exceeded=True",
+        "output_json": {},
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": "dispatcher",
+        "handoff_payload": {
+          "summary": "wind is breezy",
+          "runway": "27",
+          "crosswind_kt": 28,
+          "limit_exceeded": true
+        },
+        "facts_known": {
+          "crosswind_kt": 28,
+          "limit_kt": 25,
+          "limit_exceeded": true
+        },
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops417-fuel",
+        "trace_id": "ops-417",
+        "agent": "fuel",
+        "kind": "tool",
+        "name": "fuel-check",
+        "started_at": 4.0,
+        "ended_at": 6.0,
+        "parent_id": "ops417-root",
+        "role": "fuel",
+        "input_text": "",
+        "output_text": "Fuel is sufficient for runway 27.",
+        "output_json": {},
+        "tool_name": "compute_fuel",
+        "tool_args": {
+          "runway": "27"
+        },
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops417-decision",
+        "trace_id": "ops-417",
+        "agent": "dispatcher",
+        "kind": "llm",
+        "name": "dispatch",
+        "started_at": 6.0,
+        "ended_at": 8.0,
+        "parent_id": "ops417-root",
+        "role": "dispatcher",
+        "input_text": "Weather says wind is breezy. Fuel is sufficient. summary=wind is breezy runway=27 crosswind_kt=28 limit_exceeded=True",
+        "output_text": "HOLD. The previous decision is withdrawn because it broke a task constraint.",
+        "output_json": {
+          "decision": "HOLD",
+          "runway": "27"
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [
+          "weather",
+          "dispatch"
+        ],
+        "verification": null,
+        "asked_clarification": false,
+        "metadata": {}
+      },
+      {
+        "span_id": "ops417-verify",
+        "trace_id": "ops-417",
+        "agent": "verifier",
+        "kind": "guardrail",
+        "name": "verify",
+        "started_at": 8.0,
+        "ended_at": 9.0,
+        "parent_id": "ops417-decision",
+        "role": "verifier",
+        "input_text": "summary=wind is breezy runway=27 crosswind_kt=28 limit_exceeded=True",
+        "output_text": "pass",
+        "output_json": {
+          "passed": true
+        },
+        "tool_name": null,
+        "tool_args": {},
+        "reasoning": "",
+        "handoff_to": null,
+        "handoff_payload": {},
+        "facts_known": {},
+        "allowed_tools": null,
+        "completed_subtasks": [
+          "weather",
+          "dispatch",
+          "verify"
+        ],
+        "verification": {
+          "passed": true,
+          "checks": [
+            {
+              "name": "plan_present",
+              "ok": true
+            }
+          ]
+        },
+        "asked_clarification": false,
+        "metadata": {}
+      }
+    ],
+    "findings": [],
+    "blame": null,
+    "healthy": true
+  }
+}
