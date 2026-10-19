@@ -1,0 +1,248 @@
+{
+  "n": 15,
+  "n_failures": 14,
+  "n_healthy": 1,
+  "mode_accuracy": 1.0,
+  "blame_span_accuracy": 1.0,
+  "category_accuracy": 1.0,
+  "repair_root_cleared": 1.0,
+  "repair_fully_clean": 1.0,
+  "healthy_false_findings": 0,
+  "judge_backend": "rubric-offline",
+  "rows": [
+    {
+      "id": "ops-417",
+      "gold_mode": "FM-2.4",
+      "predicted_mode": "FM-2.4",
+      "gold_span": "ops417-handoff",
+      "predicted_span": "ops417-handoff",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-1.1",
+        "FM-2.4",
+        "FM-3.3"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-110",
+      "gold_mode": "FM-1.1",
+      "predicted_mode": "FM-1.1",
+      "gold_span": "ops110-decision",
+      "predicted_span": "ops110-decision",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-1.1"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-331",
+      "gold_mode": "FM-1.2",
+      "predicted_mode": "FM-1.2",
+      "gold_span": "ops331-tool",
+      "predicted_span": "ops331-tool",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-1.2"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-208",
+      "gold_mode": "FM-1.3",
+      "predicted_mode": "FM-1.3",
+      "gold_span": "ops208-2",
+      "predicted_span": "ops208-2",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-1.3"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-641",
+      "gold_mode": "FM-1.4",
+      "predicted_mode": "FM-1.4",
+      "gold_span": "ops641-buyer",
+      "predicted_span": "ops641-buyer",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-1.1",
+        "FM-1.4"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-318",
+      "gold_mode": "FM-1.5",
+      "predicted_mode": "FM-1.5",
+      "gold_span": "ops318-extra",
+      "predicted_span": "ops318-extra",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-1.5"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-700",
+      "gold_mode": "FM-2.1",
+      "predicted_mode": "FM-2.1",
+      "gold_span": "ops700-reset",
+      "predicted_span": "ops700-reset",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-2.1"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-015",
+      "gold_mode": "FM-2.2",
+      "predicted_mode": "FM-2.2",
+      "gold_span": "ops015-file",
+      "predicted_span": "ops015-file",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-2.2"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-880",
+      "gold_mode": "FM-2.3",
+      "predicted_mode": "FM-2.3",
+      "gold_span": "ops880-drift",
+      "predicted_span": "ops880-drift",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-2.3"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-990",
+      "gold_mode": "FM-2.5",
+      "predicted_mode": "FM-2.5",
+      "gold_span": "ops990-bind",
+      "predicted_span": "ops990-bind",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-2.5"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-774",
+      "gold_mode": "FM-2.6",
+      "predicted_mode": "FM-2.6",
+      "gold_span": "ops774-charge",
+      "predicted_span": "ops774-charge",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-2.6"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-102",
+      "gold_mode": "FM-3.1",
+      "predicted_mode": "FM-3.1",
+      "gold_span": "ops102-dispatch",
+      "predicted_span": "ops102-dispatch",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-3.1"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-120",
+      "gold_mode": "FM-3.2",
+      "predicted_mode": "FM-3.2",
+      "gold_span": "ops120-report",
+      "predicted_span": "ops120-report",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-3.2"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-556",
+      "gold_mode": "FM-3.3",
+      "predicted_mode": "FM-3.3",
+      "gold_span": "ops556-verify",
+      "predicted_span": "ops556-verify",
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [
+        "FM-3.3"
+      ],
+      "after_modes": []
+    },
+    {
+      "id": "ops-000",
+      "gold_mode": null,
+      "predicted_mode": null,
+      "gold_span": null,
+      "predicted_span": null,
+      "mode_ok": true,
+      "span_ok": true,
+      "root_cleared": true,
+      "fully_clean": true,
+      "finding_modes": [],
+      "after_modes": []
+    }
+  ],
+  "inspect_ai": {
+    "task": "mast_failure_diagnosis",
+    "model": "mockllm/model",
+    "n": 15,
+    "mode_accuracy": 1.0,
+    "blame_span_accuracy": 1.0,
+    "log_note": "Solver does not call the mock model. Scores measured by tests/test_inspect_eval.py."
+  }
+}

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mast-scope"
+version = "0.1.0"
+description = "Flight recorder for multi-agent systems: detect MAST failures, blame the earliest faulty step, and replan only that sub-task."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "zysen1" }]
+keywords = ["agents", "observability", "mast", "multi-agent", "tracing"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Typing :: Typed",
+]
+dependencies = ["pydantic>=2.6"]
+
+[project.optional-dependencies]
+openai = ["openai-agents>=0.2"]
+langgraph = ["langgraph>=0.2", "langchain-core>=0.3"]
+microsoft = ["agent-framework>=1.0", "opentelemetry-sdk>=1.27"]
+otel = ["opentelemetry-api>=1.27", "opentelemetry-sdk>=1.27"]
+eval = ["inspect-ai>=0.3.200"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+mast-scope = "mast_scope.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/zysen1/develop"
+Documentation = "https://arxiv.org/abs/2503.13657"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mast_scope = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

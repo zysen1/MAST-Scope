@@ -1,0 +1,23 @@
+MAST-Scope
+Copyright 2026 zysen1
+
+This project is original code licensed under the Apache License, Version 2.0.
+It is not a fork. It depends on the following libraries and uses their public
+extension points. Their licenses stay with them:
+
+- openai-agents (OpenAI Agents SDK), MIT License
+  https://github.com/openai/openai-agents-python
+- langgraph, MIT License
+  https://github.com/langchain-ai/langgraph
+- agent-framework (Microsoft Agent Framework), MIT License
+  https://github.com/microsoft/agent-framework
+- inspect_ai, MIT License
+  https://github.com/UKGovernmentBEIS/inspect_ai
+
+Failure mode names and the three-category structure come from the MAST
+taxonomy in Cemri et al., "Why Do Multi-Agent LLM Systems Fail?"
+(NeurIPS 2025), https://arxiv.org/abs/2503.13657
+The short descriptions in this repository are paraphrases, not the paper text.
+
+The targeted-repair split (keep finished siblings, replan the failed leaf)
+is inspired by HTN-Orchestrate, https://arxiv.org/abs/2610.22195
