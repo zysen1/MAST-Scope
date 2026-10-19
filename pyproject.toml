@@ -17,14 +17,17 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Typing :: Typed",
 ]
-dependencies = ["pydantic>=2.6"]
+dependencies = ["pydantic>=2.6,<3"]
 
 [project.optional-dependencies]
-openai = ["openai-agents>=0.2"]
-langgraph = ["langgraph>=0.2", "langchain-core>=0.3"]
-microsoft = ["agent-framework>=1.0", "opentelemetry-sdk>=1.27"]
-otel = ["opentelemetry-api>=1.27", "opentelemetry-sdk>=1.27"]
-eval = ["inspect-ai>=0.3.200"]
+openai = ["openai-agents>=0.24"]
+langgraph = ["langgraph>=1.2", "langchain-core>=1.2"]
+# agent-framework is a metapackage for agent-framework-core[all] (every model
+# provider). That extra makes pip's resolver exceed its depth. The adapter
+# only needs the core package, which publishes import agent_framework.
+microsoft = ["agent-framework-core>=1.22,<2", "opentelemetry-sdk>=1.39,<2"]
+otel = ["opentelemetry-api>=1.39,<2", "opentelemetry-sdk>=1.39,<2"]
+eval = ["inspect-ai>=0.3.281"]
 dev = ["pytest>=8"]
 
 [project.scripts]

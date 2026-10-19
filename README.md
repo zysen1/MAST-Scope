@@ -181,7 +181,7 @@ Built **on** these libraries, not by forking them. Their licenses stay with them
 
 - [openai/openai-agents-python](https://github.com/openai/openai-agents-python) — MIT. `MastScopeProcessor` subclasses `TracingProcessor`.
 - [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) — MIT. `MastScopeLangGraphHandler` subclasses `BaseCallbackHandler`.
-- [microsoft/agent-framework](https://github.com/microsoft/agent-framework) — MIT. The span processor consumes the framework's GenAI OpenTelemetry attributes; `mast_function_middleware` subclasses `FunctionMiddleware`.
+- [microsoft/agent-framework](https://github.com/microsoft/agent-framework) — MIT. The span processor consumes the framework's GenAI OpenTelemetry attributes; `mast_function_middleware` subclasses `FunctionMiddleware`. The `microsoft` extra depends on `agent-framework-core` (the package that publishes `agent_framework`). The `agent-framework` metapackage pulls every provider extra and pip cannot resolve it together with Inspect AI.
 - [UKGovernmentBEIS/inspect_ai](https://github.com/UKGovernmentBEIS/inspect_ai) — MIT. The seeded task is an Inspect `@task`.
 
 Taxonomy: Mert Cemri, Melissa Z. Pan, Shuyi Yang, Lakshya A. Agrawal, Bhavya Chopra, Rishabh Tiwari, Kurt Keutzer, Aditya Parameswaran, Dan Klein, Kannan Ramchandran, Matei Zaharia, Joseph E. Gonzalez, and Ion Stoica, [*Why Do Multi-Agent LLM Systems Fail?*](https://arxiv.org/abs/2503.13657), 2025.
